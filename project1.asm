@@ -11,6 +11,7 @@ INCLUDE Irvine32.inc
  	badInput   BYTE "Invalid length, try again.", 0Dh, 0Ah, 0	; String constant for error message
 	userLen    DWORD ?
 .code
+
 main PROC 	; David 11/1/26 added main function
         CALL Randomize  ; Seed the random number generator
         CALL GetUserInput       ; Get the user input for the string length (asked once)
@@ -26,3 +27,22 @@ main PROC 	; David 11/1/26 added main function
         EXIT    ; End the program after 20 strings
 main ENDP
 
+GetUserInput PROC ; Rishi 11/1/26 -- Added a function to get the user input for the string length
+        PUSHAD  ; Save all registers
+AskAgain:
+        MOV EDX, OFFSET prompt
+        CALL WriteString        ; Show the prompt
+        CALL ReadInt    ; Number typed goes to EAX
+        JO BadValue     ; Not a valid number
+        CMP EAX, 1
+        JL BadValue     ; Too small
+        CMP EAX, MAX_LENGTH
+        JG BadValue     ; Too big (would overflow str_memory)
+        MOV userLen, EAX        ; Valid, so save it
+        POPAD   ; Restore all registers
+        RET
+BadValue:
+        MOV EDX, OFFSET badInput
+        CALL WriteString        ; Show the error message
+        JMP AskAgain
+GetUserInput ENDP
