@@ -1,7 +1,4 @@
-build/
-*.obj
-*.exe
-*.ilk
-*.pdb
-*.lst
-.vs/
+.vs/ 
+Debug/ 
+x64/ 
+*.user 
