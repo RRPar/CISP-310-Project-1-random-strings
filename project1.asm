@@ -4,6 +4,14 @@
 
 INCLUDE Irvine32.inc
 
-.data
-	Max_Length DWORD 50  ;Max length of the string
-	str_memory BYTE Max_Length DUP(0) ;Memory for the string
+.data	; David 11/1/26 -- Redone Rishi's
+	MAX_LENGTH EQU 50 	; Max length for the output
+	str_memory BYTE MAX_LENGTH+1 DUP(0) 	; Reserves 51 bytes of memory 
+	prompt     BYTE "Enter string length (1-50): ", 0	; Ask the user to give a integer for the output length
+ 	badInput   BYTE "Invalid length, try again.", 0Dh, 0Ah, 0	; String constant for error message
+	userLen    DWORD ?
+.code
+main PROC
+	CALL Randomize
+	MOV ECX, 20	; Loop the string randomizer 20 times.
+	
