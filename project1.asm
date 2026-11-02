@@ -14,4 +14,9 @@ INCLUDE Irvine32.inc
 main PROC
 	CALL Randomize
 	MOV ECX, 20	; Loop the string randomizer 20 times.
-	
+	; Rishi 11/1/26 -- Added a loop to repeat the random string generation 20 times
+	TestLoop:
+		CALL GetUserInput	; Get the user input for the string length
+		CALL GenerateRandomString	; Generate a random string of the specified length
+		CALL DisplayString	; Display the generated random string
+		LOOP TestLoop	; Loop until ECX is 0
