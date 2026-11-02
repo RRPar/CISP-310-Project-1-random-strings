@@ -46,3 +46,20 @@ BadValue:
         CALL WriteString        ; Show the error message
         JMP AskAgain
 GetUserInput ENDP
+
+GenerateRandomString PROC ; David 11/1/26 -- Created the function to generate a random string of L characters (A-Z)
+        PUSHAD  ; Save all registers (keeps ECX safe for TestLoop)
+        MOV ECX, EAX    ; ECX = L, the number of letters
+        JECXZ Terminate ; L = 0: skip the loop, just null-terminate
+GenLoop:
+        MOV EAX, 26
+        CALL RandomRange        ; EAX = random 0-25
+        ADD EAX, 'A'    ; Convert to ASCII 'A'-'Z'
+        MOV [EDI], AL   ; Store the letter in the byte array
+        INC EDI ; Move to the next byte
+        LOOP GenLoop
+Terminate:
+        MOV BYTE PTR [EDI], 0   ; Null-terminate the string
+        POPAD   ; Restore all registers
+        RET
+GenerateRandomString ENDP
