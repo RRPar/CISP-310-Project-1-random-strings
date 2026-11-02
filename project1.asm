@@ -11,7 +11,7 @@ INCLUDE Irvine32.inc
  	badInput   BYTE "Invalid length, try again.", 0Dh, 0Ah, 0	; String constant for error message
 	userLen    DWORD ?
 .code
-main PROC
+main PROC 	; David 11/1/26 added main function
         CALL Randomize  ; Seed the random number generator
         CALL GetUserInput       ; Get the user input for the string length (asked once)
         MOV ECX, 20     ; Loop the string randomizer 20 times.
