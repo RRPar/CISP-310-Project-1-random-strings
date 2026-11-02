@@ -63,3 +63,11 @@ Terminate:
         POPAD   ; Restore all registers
         RET
 GenerateRandomString ENDP
+
+DisplayString PROC ; Rishi 11/1/26 -- Created the function to display the string
+        CALL WriteString        ; Display the string
+        CALL Crlf       ; Move to the next line
+        RET
+DisplayString ENDP
+
+END main
